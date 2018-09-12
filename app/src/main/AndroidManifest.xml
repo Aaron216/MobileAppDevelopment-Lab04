@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.curtin.comp2008.alliesandenemies">
+    package="au.edu.curtin.friendorfoe">
 
     <application
         android:allowBackup="true"

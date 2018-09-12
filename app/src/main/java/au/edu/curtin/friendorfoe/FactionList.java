@@ -1,4 +1,4 @@
-package edu.curtin.comp2008.alliesandenemies;
+package au.edu.curtin.friendorfoe;
 
 import java.util.ArrayList;
 import java.util.List;

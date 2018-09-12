@@ -1,4 +1,4 @@
-package edu.curtin.comp2008.alliesandenemies;
+package au.edu.curtin.friendorfoe;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
