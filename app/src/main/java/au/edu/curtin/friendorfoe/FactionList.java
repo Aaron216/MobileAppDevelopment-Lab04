@@ -14,7 +14,7 @@ public class FactionList {
     private SQLiteDatabase db;
     private List<Faction> factions = new ArrayList<>();
 
-    public FactionList() {}
+    public FactionList() { }
 
     public FactionList(Context context) {
         this.db = new FriendOrFoeDbHelper(

@@ -14,8 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class MainFragment extends Fragment
-{
+public class MainFragment extends Fragment {
     private FactionList factionList;
 
     private Spinner nameSpinner;
@@ -29,16 +28,14 @@ public class MainFragment extends Fragment
     private LinearLayoutManager rvLayout;
 
     @Override
-    public void onCreate(Bundle b)
-    {
+    public void onCreate(Bundle b) {
         super.onCreate(b);
         factionList = new FactionList();
         factionList.load();
     }
 
     @Override
-    public View onCreateView(LayoutInflater li, ViewGroup parent, Bundle b)
-    {
+    public View onCreateView(LayoutInflater li, ViewGroup parent, Bundle b) {
         View view = li.inflate(R.layout.fragment_main, parent, false);
 
         // Get references to all major UI elements.
@@ -58,24 +55,19 @@ public class MainFragment extends Fragment
         // We have two UI elements: a drop-down list (Spinner) and an editor (EditText). We want to
         // hide the editor *unless* the spinner's position is zero ("Custom..."). This event handler
         // arranges the the necessary state changes.
-        nameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
-        {
+        nameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long rowId)
-            {
-                if(position == 0)
-                {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long rowId) {
+                if(position == 0) {
                     nameEditor.setVisibility(View.VISIBLE);
                 }
-                else
-                {
+                else {
                     nameEditor.setVisibility(View.GONE);
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView)
-            {
+            public void onNothingSelected(AdapterView<?> adapterView) {
                 nameSpinner.setSelection(0);
             }
         });
@@ -90,12 +82,10 @@ public class MainFragment extends Fragment
                 // The new faction;s name comes from the spinner, *unless* the spinner is at
                 // position 0 ("Custom..."), in which case we take the name from the editor instead.
                 String name;
-                if(nameSpinner.getSelectedItemPosition() > 0)
-                {
+                if(nameSpinner.getSelectedItemPosition() > 0) {
                     name = nameSpinner.getSelectedItem().toString();
                 }
-                else
-                {
+                else {
                     name = nameEditor.getText().toString();
                 }
 
@@ -122,8 +112,7 @@ public class MainFragment extends Fragment
         return view;
     }
 
-    private class FactionViewHolder extends RecyclerView.ViewHolder
-    {
+    private class FactionViewHolder extends RecyclerView.ViewHolder {
         private Faction fac;
         private EditText name;
         private EditText strength;
@@ -133,8 +122,7 @@ public class MainFragment extends Fragment
         private TextWatcher tw;
         private AdapterView.OnItemSelectedListener relationshipListener;
 
-        public FactionViewHolder(LayoutInflater li, ViewGroup parent)
-        {
+        public FactionViewHolder(LayoutInflater li, ViewGroup parent) {
             super(li.inflate(R.layout.list_entry, parent, false));
 
             // Get references to the UI elements in each list row.
@@ -145,8 +133,7 @@ public class MainFragment extends Fragment
 
             // 'tw' is an event handler that will be invoked whenever the name or the 'strength' of
             // a faction is edited. We apply the same event handler to both cases for simplicity.
-            tw = new TextWatcher()
-            {
+            tw = new TextWatcher() {
                 // We're required to override these methods, but we don't actually need to use
                 // them.
                 @Override
@@ -156,8 +143,7 @@ public class MainFragment extends Fragment
 
                 // This is where we get notified that the text has actually been changed.
                 @Override
-                public void afterTextChanged(Editable editable)
-                {
+                public void afterTextChanged(Editable editable) {
                     fac.setName(name.getText().toString());
                     fac.setStrength(Integer.parseInt(strength.getText().toString()));
                     factionList.edit(fac);
@@ -166,36 +152,30 @@ public class MainFragment extends Fragment
 
             // An event handler invoked when the faction changes between 'enemy', 'neutral' and
             // 'ally'.
-            relationshipListener = new AdapterView.OnItemSelectedListener()
-            {
+            relationshipListener = new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
-                {
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     fac.setRelationship(position);
                     factionList.edit(fac);
                 }
 
                 @Override
-                public void onNothingSelected(AdapterView<?> adapterView)
-                {
+                public void onNothingSelected(AdapterView<?> adapterView) {
                     relationship.setSelection(Faction.DEFAULT_RELATIONSHIP);
                 }
             };
 
             // Event handler for the 'del' button -- for deleting a faction.
-            delButton.setOnClickListener(new View.OnClickListener()
-            {
+            delButton.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view)
-                {
+                public void onClick(View view) {
                     factionList.remove(fac);
                     adapter.notifyItemRemoved(getAdapterPosition());
                 }
             });
         }
 
-        public void bind(Faction fac)
-        {
+        public void bind(Faction fac) {
             this.fac = fac;
 
             // We must update the displayed name, strength and relationship. However, for each one
@@ -216,23 +196,19 @@ public class MainFragment extends Fragment
         }
     }
 
-    public class FactionAdapter extends RecyclerView.Adapter<FactionViewHolder>
-    {
+    public class FactionAdapter extends RecyclerView.Adapter<FactionViewHolder> {
         @Override
-        public FactionViewHolder onCreateViewHolder(ViewGroup container, int viewType)
-        {
+        public FactionViewHolder onCreateViewHolder(ViewGroup container, int viewType) {
             return new FactionViewHolder(LayoutInflater.from(getActivity()), container);
         }
 
         @Override
-        public void onBindViewHolder(FactionViewHolder vh, int position)
-        {
+        public void onBindViewHolder(FactionViewHolder vh, int position) {
             vh.bind(factionList.get(position));
         }
 
         @Override
-        public int getItemCount()
-        {
+        public int getItemCount() {
             return factionList.size();
         }
     }
