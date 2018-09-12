@@ -23,7 +23,28 @@ public class FactionList {
     }
 
     public void load() {
-        // ...
+        List<Faction> factions = new ArrayList<>();
+        FactionCursor cursor = new FactionCursor(
+            db.query(
+                FactionTable.NAME,  // FROM
+                null,   // SELECT
+                null,   // WHERE clause
+                null,   // WHERE arguments
+                null,   // GROUP BY
+                null,   // HAVING
+                null    // ORDER BY
+            )
+        );
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                factions.add(cursor.getFaction());
+                cursor.moveToNext();
+            }
+        }
+        finally {
+            cursor.close();
+        }
     }
 
     public int size() {
