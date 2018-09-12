@@ -3,8 +3,7 @@ package au.edu.curtin.friendorfoe;
 /**
  * Represents one of the various factions.
  */
-public class Faction
-{
+public class Faction {
     public static final int ENEMY = 0;
     public static final int NEUTRAL = 1;
     public static final int ALLY = 2;
@@ -22,10 +21,8 @@ public class Faction
     /**
      * Creates a new Faction by explicitly giving the ID, as well as other information.
      */
-    public Faction(int id, String name, int strength, int relationship)
-    {
-        if(!(relationship == ENEMY || relationship == NEUTRAL || relationship == ALLY))
-        {
+    public Faction(int id, String name, int strength, int relationship) {
+        if(!(relationship == ENEMY || relationship == NEUTRAL || relationship == ALLY)) {
             throw new IllegalArgumentException();
         }
         this.id = id;
@@ -38,46 +35,37 @@ public class Faction
     /**
      * Creates a new Faction, and auto-generates a new ID (based on the next unused one).
      */
-    public Faction(String name, int strength, int relationship)
-    {
+    public Faction(String name, int strength, int relationship) {
         this(nextId, name, strength, relationship); // Delegate to the other constructor
         nextId++;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public int getStrength()
-    {
+    public int getStrength() {
         return strength;
     }
 
-    public int getRelationship()
-    {
+    public int getRelationship() {
         return relationship;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setStrength(int strength)
-    {
+    public void setStrength(int strength) {
         this.strength = strength;
     }
 
-    public void setRelationship(int relationship)
-    {
-        if(!(relationship == ENEMY || relationship == NEUTRAL || relationship == ALLY))
-        {
+    public void setRelationship(int relationship) {
+        if(!(relationship == ENEMY || relationship == NEUTRAL || relationship == ALLY)) {
             throw new IllegalArgumentException();
         }
         this.relationship = relationship;
